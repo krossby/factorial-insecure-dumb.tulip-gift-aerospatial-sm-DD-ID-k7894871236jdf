@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"> <!-- evita que Google lo muestre en búsquedas -->
+<title>Para ti 🌷</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+  GUÍA RÁPIDA
+  1) TEXTOS, POEMA, MÚSICA Y PREGUNTAS → todo está en el bloque
+     "CONFIGURACIÓN" que está al final del archivo (dentro de <script>).
+  2) COLORES → bloque ":root" aquí abajo (variables --rosa, --fondo...).
+  3) No necesitas tocar nada más. Guarda y abre el archivo en el navegador.
+============================================================ -->
+
+<style>
+:root{
+  /* ===== COLORES (edítalos aquí) ===== */
+  --fondo-1:#ffd9e6;      /* rosa cálido claro */
+  --fondo-2:#f6c4ea;      /* rosa frío / lila */
+  --fondo-3:#ffe8d9;      /* durazno suave */
+  --rosa:#e0457b;         /* color principal */
+  --rosa-suave:#ff8fb8;
+  --texto:#4a1d36;
+  --texto-suave:#8a4a69;
+  --vidrio:rgba(255,255,255,.38);
+  --borde:rgba(255,255,255,.7);
+  --verde:#4f9a6b;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',system-ui,sans-serif;color:var(--texto);line-height:1.65;
+  min-height:100vh;
+  background:linear-gradient(135deg,var(--fondo-1),var(--fondo-2) 55%,var(--fondo-3));
+  background-attachment:fixed;overflow-x:hidden;
+}
+/* manchas de luz para dar efecto cristal */
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(70px);opacity:.7}
+body::before{width:420px;height:420px;background:#ff9cc2;top:-100px;left:-120px}
+body::after{width:480px;height:480px;background:#d9a8ff;bottom:-160px;right:-140px}
+
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2}
+main{max-width:860px;margin:0 auto;padding:0 20px 60px}
+section{padding:56px 0 8px}
+
+/* ===== Tarjeta de vidrio (estilo Fluent / acrílico) ===== */
+.glass{
+  background:var(--vidrio);
+  backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);
+  border:1px solid var(--borde);border-radius:26px;
+  box-shadow:0 10px 40px rgba(224,69,123,.18),inset 0 1px 0 rgba(255,255,255,.8);
+  padding:32px;
+}
+.titulo{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:6px}
+.sub{color:var(--texto-suave);margin-bottom:20px}
+.deco{position:absolute;pointer-events:none}
+
+/* ===== INICIO ===== */
+#inicio{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding-top:40px}
+#inicio .glass{position:relative;max-width:560px;width:100%;padding:40px 32px 34px}
+.mascota{border-radius:50%;border:4px solid rgba(255,255,255,.85);object-fit:cover;aspect-ratio:1}
+.snoopy-hero{width:170px;margin:-120px auto 10px;display:block;filter:drop-shadow(0 8px 14px rgba(120,30,70,.25));animation:flota 4s ease-in-out infinite}
+@keyframes flota{50%{transform:translateY(-8px)}}
+#inicio h1{font-size:clamp(2.2rem,8vw,3.6rem);color:var(--rosa)}
+.poema{font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem;margin-top:20px;white-space:pre-line;color:var(--texto)}
+.firma{margin-top:16px;color:var(--texto-suave)}
+.flecha{margin-top:28px;display:inline-block;color:var(--rosa);text-decoration:none;font-weight:700;padding:10px 22px;border-radius:99px;background:rgba(255,255,255,.5);border:1px solid var(--borde)}
+.flecha:hover{background:rgba(255,255,255,.8)}
+.tulipanes-inicio{display:flex;justify-content:center;gap:6px;margin-top:26px;height:90px;align-items:flex-end}
+.tulipanes-inicio svg{width:44px;height:90px}
+.tulipanes-inicio svg:nth-child(even){height:72px}
+
+/* ===== REPRODUCTOR ===== */
+.player{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.disco{width:150px;height:150px;border-radius:50%;flex:none;position:relative;
+  background:conic-gradient(from 0deg,#ffb3d1,#e0457b,#f6c4ea,#ff8fb8,#ffb3d1);
+  box-shadow:0 10px 26px rgba(224,69,123,.35);display:grid;place-items:center;animation:gira 7s linear infinite;animation-play-state:paused}
+.disco.on{animation-play-state:running}
+.disco::before{content:"";position:absolute;inset:8px;border-radius:50%;border:1px dashed rgba(255,255,255,.7)}
+.disco .centro{width:52px;height:52px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.disco .centro svg{width:26px;height:40px}
+@keyframes gira{to{transform:rotate(360deg)}}
+.pista{flex:1;min-width:220px}
+.pista h3{font-size:1.4rem}
+.pista p{color:var(--texto-suave);font-size:.95rem}
+.controles{display:flex;align-items:center;gap:14px;margin-top:16px}
+.btn-play{width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;color:#fff;font-size:1.3rem;
+  background:linear-gradient(135deg,var(--rosa-suave),var(--rosa));box-shadow:0 6px 16px rgba(224,69,123,.4)}
+.btn-play:hover{transform:scale(1.05)}
+.barra{flex:1;-webkit-appearance:none;appearance:none;height:8px;border-radius:99px;background:rgba(255,255,255,.7);outline:none}
+.barra::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--rosa);border:3px solid #fff;cursor:pointer}
+.barra::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--rosa);border:3px solid #fff;cursor:pointer}
+.tiempo{font-size:.85rem;color:var(--texto-suave);min-width:84px;text-align:right}
+.letra{position:relative;height:230px;overflow-y:auto;margin-top:26px;padding:90px 14px;text-align:center;scroll-behavior:smooth;scrollbar-width:none;
+  border-radius:20px;background:rgba(255,255,255,.3);border:1px solid var(--borde);
+  -webkit-mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent)}
+.letra::-webkit-scrollbar{display:none}
+.linea{font-family:'Fraunces',serif;font-size:1.2rem;padding:6px 0;opacity:.4;cursor:pointer;transition:all .35s;transform-origin:center}
+.linea:hover{opacity:.7}
+.linea.activa{opacity:1;color:var(--rosa);font-weight:600;transform:scale(1.08)}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.link-spotify{font-size:.85rem;font-weight:700;color:var(--rosa);text-decoration:none;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.6);border:1px solid var(--borde)}
+.nota-musica{margin-top:14px;font-size:.9rem;color:var(--texto-suave)}
+
+/* ===== AGRADECIMIENTO ===== */
+.gracias{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+.gracias img.snoopy{width:130px;filter:drop-shadow(0 8px 14px rgba(120,30,70,.25))}
+.gracias p{white-space:pre-line}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.6);border:1px solid var(--borde);font-size:.92rem;color:var(--rosa);font-weight:600}
+
+/* ===== CUESTIONARIO ===== */
+.progreso{height:6px;border-radius:99px;background:rgba(255,255,255,.7);overflow:hidden;margin-bottom:22px}
+.progreso i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rosa-suave),var(--rosa));transition:width .4s}
+.pregunta{font-size:1.4rem;margin-bottom:16px}
+.opciones{display:grid;gap:10px}
+.opcion{font:inherit;text-align:left;padding:14px 18px;border-radius:16px;cursor:pointer;color:var(--texto);
+  background:rgba(255,255,255,.55);border:1px solid var(--borde);transition:.2s}
+.opcion:hover,.opcion:focus-visible{background:rgba(255,255,255,.9);transform:translateX(4px);outline:2px solid var(--rosa-suave)}
+.respuesta{margin-top:18px;padding:16px 18px;border-radius:16px;background:rgba(224,69,123,.12);border:1px solid rgba(224,69,123,.25)}
+.btn{font:inherit;font-weight:700;border:0;cursor:pointer;color:#fff;padding:12px 26px;border-radius:99px;margin-top:16px;
+  background:linear-gradient(135deg,var(--rosa-suave),var(--rosa));box-shadow:0 6px 16px rgba(224,69,123,.35)}
+.btn:hover{filter:brightness(1.07)}
+.fin-quiz{text-align:center}
+.fin-quiz .lip{width:60px;margin:0 auto 10px;display:block}
+
+/* ===== FINAL ===== */
+#final{text-align:center;padding-bottom:20px}
+#final .glass{position:relative;padding-top:20px}
+#final .snoopy-fin{width:140px;margin:-100px auto 6px;display:block;filter:drop-shadow(0 8px 14px rgba(120,30,70,.25))}
+#final p.texto{white-space:pre-line;margin-top:14px}
+#final .despedida{font-family:'Fraunces',serif;font-style:italic;font-size:1.4rem;color:var(--rosa);margin-top:20px}
+.maquillaje{display:flex;justify-content:center;gap:14px;margin-top:18px;font-size:1.6rem}
+footer{text-align:center;color:var(--texto-suave);font-size:.85rem;padding:20px}
+
+/* cae de pétalos al presionar el corazón */
+.petalo{position:fixed;top:-30px;z-index:50;pointer-events:none;animation:cae linear forwards}
+@keyframes cae{to{transform:translateY(110vh) rotate(360deg);opacity:.2}}
+
+@media (max-width:560px){
+  .glass{padding:24px 20px}
+  .gracias{grid-template-columns:1fr;text-align:center}
+  .gracias img.snoopy{margin:0 auto}
+  .player{justify-content:center;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- ===== DIBUJOS REUTILIZABLES (tulipán, labial) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- La imagen es "mascota.jpg" (misma carpeta que este HTML; se cambia en CONFIG.imagen) -->
+    <!-- Tulipán: usa color con currentColor (se cambia con style="color:#...") -->
+    <symbol id="tulipan" viewBox="0 0 60 120">
+      <path d="M30 56 C29 80 31 100 30 120" stroke="#4f9a6b" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M30 110 C12 104 8 86 10 74 C22 80 30 92 30 110Z" fill="#6fba88"/>
+      <path d="M30 104 C46 98 52 84 50 72 C38 78 30 90 30 104Z" fill="#5aa675"/>
+      <path d="M12 26 C10 46 18 60 30 60 C42 60 50 46 48 26 L40 36 L30 20 L20 36Z" fill="currentColor"/>
+      <path d="M30 20 L20 36 C18 48 22 58 30 60 C38 58 42 48 40 36Z" fill="#fff" opacity=".22"/>
+    </symbol>
+    <!-- Labial -->
+    <symbol id="labial" viewBox="0 0 40 100">
+      <rect x="8" y="58" width="24" height="38" rx="4" fill="#3b2431"/>
+      <rect x="8" y="52" width="24" height="9" fill="#e9c27b"/>
+      <rect x="11" y="28" width="18" height="26" rx="3" fill="#e0457b"/>
+      <path d="M11 28 L17 8 Q22 4 29 14 L29 28Z" fill="#ff5c93"/>
+    </symbol>
+  </defs>
+</svg>
+
+<main>
+
+<!-- ===================== 1) INICIO ===================== -->
+<section id="inicio">
+  <div class="glass">
+    <img class="snoopy-hero mascota" data-mascota alt="Mascota">
+    <h1 id="titulo"></h1>
+    <p class="poema" id="poema"></p>
+    <p class="firma" id="firma"></p>
+    <div class="tulipanes-inicio" id="tulipanesInicio"></div>
+    <a class="flecha" href="#musica">Sigue bajando 💗</a>
+  </div>
+</section>
+
+<!-- ===================== 2) CUERPO ===================== -->
+<section id="musica">
+  <div class="glass">
+    <h2 class="titulo" id="musicaTitulo"></h2>
+    <p class="sub" id="musicaSub"></p>
+    <div class="player">
+      <div class="disco" id="disco"><div class="centro"><svg viewBox="0 0 60 120" style="color:#e0457b"><use href="#tulipan"/></svg></div></div>
+      <div class="pista">
+        <h3 id="cancionNombre"></h3>
+        <p id="cancionArtista"></p>
+        <div class="controles">
+          <button class="btn-play" id="play" aria-label="Reproducir o pausar">▶</button>
+          <input type="range" class="barra" id="barra" min="0" max="100" value="0" aria-label="Progreso">
+          <span class="tiempo" id="tiempo">0:00 / 0:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="letra" id="letra" aria-live="polite"></div>
+    <div class="links"><a class="link-spotify" id="linkSpotify" target="_blank" rel="noopener">Abrir en Spotify 🎧</a></div>
+    <p class="nota-musica" id="notaMusica"></p>
+    <audio id="audio" preload="metadata"></audio>
+  </div>
+</section>
+
+<section id="gracias">
+  <div class="glass gracias">
+    <img class="snoopy mascota" data-mascota alt="Mascota">
+    <div>
+      <h2 class="titulo" id="graciasTitulo"></h2>
+      <p id="graciasTexto"></p>
+      <div class="chips" id="chips"></div>
+    </div>
+  </div>
+</section>
+
+<section id="cuestionario">
+  <div class="glass" id="quiz"></div>
+</section>
+
+<!-- ===================== 3) FINAL ===================== -->
+<section id="final">
+  <div class="glass">
+    <img class="snoopy-fin mascota" data-mascota alt="Mascota">
+    <h2 class="titulo" id="finalTitulo"></h2>
+    <p class="texto" id="finalTexto"></p>
+    <p class="despedida" id="despedida"></p>
+    <div class="maquillaje">💄 💋 🪞 🌷 🎀</div>
+    <button class="btn" id="btnPetalos">Un último regalito 🌷</button>
+  </div>
+</section>
+
+</main>
+<footer id="pie"></footer>
+
+<script>
+/* ==========================================================
+   ⚙️  CONFIGURACIÓN — AQUÍ EDITAS TODO EL CONTENIDO
+   Solo cambia el texto que está entre comillas " ".
+   Para hacer un salto de línea en un texto usa \n
+   ========================================================== */
+const CONFIG = {
+
+  /* ---------- INICIO ---------- */
+  titulo: "Para ti, mi persona favorita",
+
+  // 👇 AQUÍ VA TU POEMA CORTO (usa \n para separar los versos)
+  poema: "Eres tulipán en mi primavera,\ncolor de rosa en mis mañanas,\ny en cada paso a tu lado\nla vida se me vuelve más bonita.",
+  firma: "— Con todo mi cariño, Alex",
+
+  // 👇 Imagen que aparece 3 veces (inicio, agradecimiento y final).
+  // Guárdala en la MISMA carpeta con este nombre. Si no existe, se muestra un perrito de respaldo.
+  imagen: "mascota.jpg",
+  // true = la imagen se ve dentro de un círculo con borde (ideal para fotos o imágenes con fondo).
+  // false = se muestra tal cual (ideal para un PNG con fondo transparente, como "mascota.png").
+  marcoCircular: true,
+
+  /* ---------- MÚSICA ---------- */
+  musicaTitulo: "La canción que me recuerda a ti",
+  musicaSub: "Puede que la letra sea 'rara' pero me encanta",
+  cancion: {
+    nombre: "Denim Jeanz",
+    artista: "Overtonight",
+    // 👇 Archivo MP3 de la canción (en la MISMA carpeta que este HTML)
+    archivo: "cancion.mp3",
+    // Enlace a Spotify (aparece como botón debajo del reproductor)
+    spotify: "https://open.spotify.com/track/3X98SL13a4C4YV5YHw9NLe"
+  },
+
+  /* ---------- LETRA SINCRONIZADA ----------
+     Formato: [minutos:segundos.centésimas] texto de esa línea
+     Una línea por verso, en orden. Ejemplo: [01:05.30] texto
+     Pega aquí la letra con sus tiempos (formato LRC).
+     Si va adelantada/atrasada en TODA la canción, ajusta letraDesfase
+     (en segundos; positivo = la letra aparece antes, negativo = después). */
+  letraDesfase: 0,
+  letra: `
+[00:00.21] Spilled your blood all on my denim jeans
+[00:02.70] I need to get 'em clean
+[00:04.31] I killed my enemies, but they're still coming at me in my dreams
+[00:08.18] Spilled your blood on my shirt, now I gotta get it clean
+[00:10.12] A bad decision on Promethazine
+[00:12.23] I'm mad suspicious that you're gonna cheat
+[00:14.17] My intuition is shouting at me
+[00:16.32] She loves the bite of my shoulder
+[00:18.20] We'll get married when we're older
+[00:20.46] It all falls to leaves and boulders
+[00:22.32] Soon day I'll invite her over
+[00:24.45] Will she come?
+[00:25.82] I don't know I'm too dumb
+[00:27.94] Sitting on my tongue
+[00:29.97] The words that I strung
+[00:32.02] Together in a month
+[00:33.79] I'm bad at saying what I wanna say (I am a so am)
+[00:37.84] What if my words? What if they chase her far away
+[00:41.89] Spilled your blood on my shirt, now I gotta get it clean (Woah, woah)
+[00:43.65] A bad decision on Promethazine (Woah, woah)
+[00:45.82] I'm mad suspicious that you're gonna cheat
+[00:47.82] My intuition is shouting at me
+[00:49.97] She loves the bite of my shoulder
+[00:51.83] We'll get married when we're older
+[00:53.96] It all falls to leaves and boulders
+[00:55.93] Soon day I'll invite her over
+[00:58.04] She won't go (She won't go)
+[00:59.95] She won't leave home (Woah)
+[01:02.16] 'Cause it's too cold
+[01:04.15] She likes the summer more you know
+[01:07.48] Spilled your blood all on my denim jeans
+[01:09.96] I need to get 'em clean
+[01:11.48] I killed my enemies, but they're still coming at me in my dreams
+[01:15.40] Spilled your blood on my shirt, now I gotta get it clean
+[01:17.42] A bad decision on Promethazine
+[01:19.54] I'm mad suspicious that you're gonna cheat
+[01:21.42] My intuition is shouting at me
+[01:23.73] I sing my violent songs but there saying I should stop 'cause
+[01:28.16] They say it's concerning and I might sound the alarm off
+[01:33.93] Spilled your blood on my shirt, now I gotta get it clean
+[01:37.58] A bad decision on Promethazine
+[01:40.47] I'm mad suspicious that you're gonna cheat
+[01:43.42] My intuition is shouting at me
+[01:46.50] She loves the bite of my shoulder
+[01:48.87] We'll get married when we're older
+[01:52.22] It all falls to leaves and boulders
+[01:54.88] Soon day I'll invite her over
+
+`,
+  notaMusica: "Esta canción la escuché y fue imposible no pensar en ti. 💗",
+
+  /* ---------- AGRADECIMIENTO ---------- */
+  graciasTitulo: "Gracias por existir en mi vida",
+  graciasTexto: "No sé explicar bien lo mucho que me emociona compartir mi vida contigo.\nCada día contigo es mi parte favorita, y lo pequeño se vuelve enorme cuando estás cerca.\nGracias por tu paciencia, tu risa y por ser tan tú.",
+  // Cosas que amas de esa persona (puedes agregar o quitar)
+    chips: ["Tu sonrisa", "Tu forma de abrazar", "Tus ocurrencias", "Tu ternura", "Estar contigo", "Tus Locuras", "Tus 'Ash'", "Tus ojitos 👀", "Que cada dia me enamores"],
+
+  /* ---------- CUESTIONARIO ----------
+     Cada pregunta tiene: pregunta, opciones y una respuesta tierna para
+     cada opción (en el mismo orden). No hay respuestas "incorrectas" 💕   */
+  quizTitulo: "Un cuestionario solo para nosotros",
+  preguntas: [
+    {
+      q: "¿Cuál sería nuestra cita perfecta?",
+      opciones: ["Cine y palomitas", "Un picnic con tulipanes", "Cocinar juntos", "Un paseo sin rumbo"],
+      respuestas: [
+        "¡Perfecto! Yo me encargo de las palomitas y tú de abrazarme.",
+        "Me encanta. Llevo yo la manta rosa. 🌷",
+        "Prometo no quemar nada… (casi nada).",
+        "Contigo, perderme siempre es llegar a casa."
+      ]
+    },
+    {
+      q: "¿Qué es lo que más te gusta de nosotros?",
+      opciones: ["Cómo nos reímos", "Cómo nos cuidamos", "Cómo nos entendemos", "Todo"],
+      respuestas: [
+        "Tu risa es mi sonido favorito.",
+        "Cuidarte es mi mejor trabajo.",
+        "Contigo no hacen falta muchas palabras.",
+        "Respuesta correcta: todo. 💗"
+      ]
+    },
+    {
+      q: "Si fuéramos un dúo, ¿cuál seríamos?",
+      opciones: ["Snoopy y Woodstock", "Labial y espejo", "Tulipán y primavera", "Café y pan dulce"],
+      respuestas: [
+        "Siempre juntos en cada aventura.",
+        "Tú me haces ver lo mejor de mí.",
+        "Contigo todo florece.",
+        "Dulces y calentitos, como tú."
+      ]
+    },
+    {
+      q: "¿Cómo te gustaría que celebremos nuestros días especiales?",
+      opciones: ["Con una carta", "Con una escapada", "Con una cena", "Con muchos abrazos"],
+      respuestas: [
+        "Escribiré las que hagan falta.",
+        "Ya estoy buscando destinos.",
+        "Con velas y postre, por supuesto.",
+        "Esos nunca van a faltar."
+      ]
+    },
+    {
+      q: "¿Qué quieres que nunca cambie entre nosotros?",
+      opciones: ["Los detalles pequeños", "Las ganas de vernos", "La confianza", "Los abrazos largos"],
+      respuestas: [
+        "Seguiré notando todo lo que haces.",
+        "Cada vez que te veo, es la primera vez.",
+        "Es lo más valioso que tengo contigo.",
+        "Son mi lugar favorito del mundo."
+      ]
+    }
+  ],
+  quizFinalTitulo: "¡Cuestionario completado!",
+  quizFinalTexto: "No importa qué hayas elegido: contigo todas las respuestas son las correctas. 💕",
+
+  /* ---------- FINAL ---------- */
+  finalTitulo: "Gracias por leer hasta aquí",
+  finalTexto: "Hice esta pequeña web con todo mi cariño para recordarte lo especial que eres.\nGracias por ser mi compañía, mi calma y mi alegría.",
+  despedida: "Te quiero muchísimo. Hasta pronto, mi amor. 🌷",
+  pie: "Hecho con amor · Por Alex"
+};
+
+/* ==========================================================
+   🔧 CÓDIGO (no necesitas tocarlo)
+   ========================================================== */
+const $ = id => document.getElementById(id);
+const tulip = (c) => `<svg viewBox="0 0 60 120" style="color:${c}"><use href="#tulipan"/></svg>`;
+
+// Imagen (con perrito de respaldo si falta el archivo)
+const PUP = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#ffd9e6"/><ellipse cx="26" cy="62" rx="14" ry="30" fill="#c98a6b"/><ellipse cx="94" cy="62" rx="14" ry="30" fill="#c98a6b"/><circle cx="60" cy="64" r="36" fill="#fff4e8"/><circle cx="47" cy="58" r="4" fill="#4a1d36"/><circle cx="73" cy="58" r="4" fill="#4a1d36"/><ellipse cx="60" cy="72" rx="7" ry="5" fill="#4a1d36"/><path d="M52 80 Q60 88 68 80" stroke="#4a1d36" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="40" cy="72" r="5" fill="#ff8fb8" opacity=".6"/><circle cx="80" cy="72" r="5" fill="#ff8fb8" opacity=".6"/><path d="M60 30 L48 22 L50 38Z M60 30 L72 22 L70 38Z" fill="#e0457b"/></svg>');
+document.querySelectorAll("img[data-mascota]").forEach(i => { i.onerror = () => { i.onerror = null; i.src = PUP; }; i.src = CONFIG.imagen; if (!CONFIG.marcoCircular) i.classList.remove("mascota"); });
+
+// Textos
+$("titulo").textContent = CONFIG.titulo;
+$("poema").textContent = CONFIG.poema;
+$("firma").textContent = CONFIG.firma;
+$("musicaTitulo").textContent = CONFIG.musicaTitulo;
+$("musicaSub").textContent = CONFIG.musicaSub;
+$("cancionNombre").textContent = CONFIG.cancion.nombre;
+$("cancionArtista").textContent = CONFIG.cancion.artista;
+$("notaMusica").textContent = CONFIG.notaMusica;
+$("graciasTitulo").textContent = CONFIG.graciasTitulo;
+$("graciasTexto").textContent = CONFIG.graciasTexto;
+$("finalTitulo").textContent = CONFIG.finalTitulo;
+$("finalTexto").textContent = CONFIG.finalTexto;
+$("despedida").textContent = CONFIG.despedida;
+$("pie").textContent = CONFIG.pie;
+$("chips").innerHTML = CONFIG.chips.map(c => `<span class="chip">${c}</span>`).join("");
+
+// Tulipanes del inicio (colores editables aquí)
+const coloresTulipan = ["#e0457b", "#ff8fb8", "#c85ad6", "#ff6f9f", "#f2a0c8", "#e0457b", "#ff8fb8"];
+$("tulipanesInicio").innerHTML = coloresTulipan.map(tulip).join("");
+
+// ---------- Reproductor ----------
+const audio = $("audio"), play = $("play"), barra = $("barra"), disco = $("disco");
+audio.src = CONFIG.cancion.archivo;
+const fmt = s => isFinite(s) ? Math.floor(s/60) + ":" + String(Math.floor(s%60)).padStart(2,"0") : "0:00";
+const pintaTiempo = () => $("tiempo").textContent = fmt(audio.currentTime) + " / " + fmt(audio.duration);
+play.onclick = () => {
+  if (audio.paused) audio.play().catch(() => { $("notaMusica").textContent = "⚠️ No se encontró el archivo de música. Revisa el nombre en CONFIG.cancion.archivo."; });
+  else audio.pause();
+};
+audio.onplay = () => { play.textContent = "⏸"; disco.classList.add("on"); };
+audio.onpause = () => { play.textContent = "▶"; disco.classList.remove("on"); };
+audio.onended = () => { play.textContent = "▶"; disco.classList.remove("on"); };
+audio.onloadedmetadata = pintaTiempo;
+audio.ontimeupdate = () => { if (audio.duration) barra.value = audio.currentTime / audio.duration * 100; pintaTiempo(); };
+barra.oninput = () => { if (audio.duration) audio.currentTime = barra.value / 100 * audio.duration; };
+
+// ---------- Letra sincronizada ----------
+const lineas = [];
+CONFIG.letra.split("\n").forEach(l => {
+  const tiempos = [...l.matchAll(/\[(\d+):(\d+(?:\.\d+)?)\]/g)];
+  const texto = l.replace(/\[[^\]]*\]/g, "").trim();
+  if (!tiempos.length || !texto) return;
+  tiempos.forEach(t => lineas.push({ t: +t[1] * 60 + +t[2], texto }));
+});
+lineas.sort((x, y) => x.t - y.t);
+const cajaLetra = $("letra");
+cajaLetra.innerHTML = lineas.map((l, i) => `<div class="linea" data-i="${i}">${l.texto}</div>`).join("");
+const divs = [...cajaLetra.children];
+divs.forEach((d, i) => d.onclick = () => { audio.currentTime = Math.max(0, lineas[i].t - CONFIG.letraDesfase); if (audio.paused) audio.play().catch(()=>{}); });
+let activa = -1;
+function sincroniza() {
+  const t = audio.currentTime + CONFIG.letraDesfase;
+  let idx = -1;
+  for (let i = 0; i < lineas.length; i++) { if (lineas[i].t <= t) idx = i; else break; }
+  if (idx === activa) return;
+  if (activa >= 0 && divs[activa]) divs[activa].classList.remove("activa");
+  activa = idx;
+  if (idx >= 0) {
+    const d = divs[idx];
+    d.classList.add("activa");
+    cajaLetra.scrollTo({ top: d.offsetTop - cajaLetra.clientHeight / 2 + d.clientHeight / 2, behavior: "smooth" });
+  }
+}
+audio.addEventListener("timeupdate", sincroniza);
+audio.addEventListener("seeked", sincroniza);
+$("linkSpotify").href = CONFIG.cancion.spotify;
+
+// ---------- Cuestionario ----------
+let paso = 0;
+function dibujaQuiz() {
+  const P = CONFIG.preguntas, box = $("quiz");
+  if (paso >= P.length) {
+    box.innerHTML = `<div class="fin-quiz"><svg class="lip" viewBox="0 0 40 100"><use href="#labial"/></svg>
+      <h2 class="titulo">${CONFIG.quizFinalTitulo}</h2><p>${CONFIG.quizFinalTexto}</p>
+      <button class="btn" id="otra">Volver a jugar</button></div>`;
+    $("otra").onclick = () => { paso = 0; dibujaQuiz(); };
+    return;
+  }
+  const p = P[paso];
+  box.innerHTML = `<h2 class="titulo">${CONFIG.quizTitulo}</h2>
+    <div class="progreso"><i style="width:${paso / P.length * 100}%"></i></div>
+    <h3 class="pregunta">${p.q}</h3>
+    <div class="opciones">${p.opciones.map((o, i) => `<button class="opcion" data-i="${i}">${o}</button>`).join("")}</div>
+    <div id="resp"></div>`;
+  box.querySelectorAll(".opcion").forEach(b => b.onclick = () => {
+    box.querySelectorAll(".opcion").forEach(x => x.disabled = true);
+    b.style.background = "rgba(255,255,255,.95)";
+    $("resp").innerHTML = `<div class="respuesta">${p.respuestas[b.dataset.i]}</div>
+      <button class="btn" id="sig">${paso === P.length - 1 ? "Terminar 💗" : "Siguiente"}</button>`;
+    $("sig").onclick = () => { paso++; dibujaQuiz(); };
+  });
+}
+dibujaQuiz();
+
+// ---------- Nevada de pétalos y corazones ----------
+// Se anima con JavaScript (Web Animations), así que funciona aunque el sistema tenga
+// desactivadas las animaciones. Para cambiar los emojis, edita la lista "emojis".
+let nevando = false;
+$("btnPetalos").onclick = () => {
+  if (nevando) return;
+  nevando = true;
+  const emojis = ["🌷", "💗", "🌸", "💄", "🎀", "✨"];
+  const inicio = Date.now();
+  const crea = () => {
+    const e = document.createElement("span");
+    e.className = "petalo";
+    e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    e.style.left = Math.random() * 100 + "vw";
+    e.style.top = "0";
+    e.style.fontSize = 16 + Math.random() * 20 + "px";
+    document.body.appendChild(e);
+    const d = (Math.random() * 2 - 1) * 80;          // deriva lateral total (px)
+    const alto = window.innerHeight + 60;
+    const giro = (Math.random() * 2 - 1) * 360;
+    const dur = 5000 + Math.random() * 5000;          // 5 a 10 segundos de caída
+    const anim = e.animate([
+      { transform: "translate(0,-40px) rotate(0deg)", opacity: 0 },
+      { opacity: 1, offset: .08 },
+      { transform: `translate(${d * .25 + 30}px,${alto * .25}px) rotate(${giro * .25}deg)`, offset: .25 },
+      { transform: `translate(${d * .5 - 30}px,${alto * .5}px) rotate(${giro * .5}deg)`, offset: .5 },
+      { transform: `translate(${d * .75 + 30}px,${alto * .75}px) rotate(${giro * .75}deg)`, offset: .75 },
+      { transform: `translate(${d}px,${alto}px) rotate(${giro}deg)`, opacity: .6 }
+    ], { duration: dur, easing: "linear" });
+    anim.onfinish = () => e.remove();
+  };
+  const t = setInterval(() => {
+    crea(); crea();
+    if (Date.now() - inicio > 9000) { clearInterval(t); nevando = false; }
+  }, 160);
+};
+</script>
+</body>
+</html>
